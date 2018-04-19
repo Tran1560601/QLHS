@@ -10,35 +10,44 @@
 </head>
 
 <script>
-    // $(document).ready(() => {
-    //     for (let id = 1; id < 5; id++) {
-    //         $('.ds').append(
-    //             '<tr> <td> e   </td> <td>  re  </td> <td>  reỉ  </td> <td>  r  </td> </tr>'
-    //         )
-    //     }
-    // })
     $(document).ready(() => {
-        result.rows.forEach(function(sv){
-            $('.ds').append(
-                '<tr> <td>' + sv.mahs +
-                '</td> <td>  Họ tên  </td> <td>  Địa chỉ  </td> <td>  Lớp  </td> </tr>'
-            )
+        $.ajax({
+            url: '/load',
+            method: 'get',
+            success(data) {
+                data.forEach(x => {
+                    $('tbody').append(
+                        `
+                        <tr>
+                            <td>` + x.mahs + `</td>
+                            <td>` + x.hoten +`</td>
+                            <td>` + x.diachi + `</td>
+                            <td>` + x.tenlop + `</td>
+                        </tr>
+                       `
+                    )
+                });
+            },
+            error(err) {
+                $('tbody').status(404)
+            },
         })
     })
 </script>
 
 <body>
-    <table width="500" border="1" class="ds">
-        <tr>
-            <td> Mã HS </td>
-            <td> Họ tên </td>
-            <td> Địa chỉ </td>
-            <td> Lớp </td>
-        </tr>
+    <table width="500" border="1" >
+        <thead>
+            <tr>
+                <td> Mã học sinh </td>
+                <td> Họ tên </td>
+                <td> Địa chỉ </td>
+                <td> Lớp </td>
+            </tr>
+        </thead>
+        <tbody>
 
-        <!-- <div >
-
-        </div> -->
+        </tbody>
 
     </table>
 </body>
